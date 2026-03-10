@@ -1,19 +1,23 @@
 package com.example.barangaycomplaints;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class StoreComplaint {
-    private List<Complaint> complaintList;
+
+    private ComplaintDao complaintDao;
     private static StoreComplaint INSTANCE;
 
-    private StoreComplaint() {
-        complaintList = new ArrayList<>();
+    private StoreComplaint(Context context) {
+        AppDatabase db = AppDatabase.getINSTANCE(context);
+        complaintDao = db.complaintDao();
     }
 
-    public static StoreComplaint getInstance() {
+    public static StoreComplaint getInstance(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new StoreComplaint();
+            INSTANCE = new StoreComplaint(context);
         }
         return INSTANCE;
     }
@@ -23,49 +27,33 @@ public class StoreComplaint {
     //read
 
     public void addComplaint(Complaint complaint) {
-        complaintList.add(complaint);
+        complaintDao.insert(complaint);
     }
 
     //get all complaints
     public List<Complaint> getComplaintList() {
-        return complaintList;
+        return complaintDao.getAllComplaintList();
     }
 
     //Description: Get a complaint by its ID.
     public Complaint getComplaintById(int complaintId) {
-        for (Complaint complaint : complaintList) {
-            if (complaint.getComplaintId() == complaintId) {
-                return complaint;
-            }
+        if(complaintDao.getComplaintById(complaintId) != null) {
+            return complaintDao.getComplaintById(complaintId);
         }
         return null;
     }
 
-    public void updateComplaint(int position, Complaint updatedComplaint) {
-        if(position >= 0 && position < complaintList.size()) {
-            complaintList.set(position, updatedComplaint);
-        }
+    //update the complaint
+    public void updateComplaint(Complaint complaint) {
+        complaintDao.update(complaint);
     }
 
-    //delete complaintbyposition
-    public void deleteComplaintByPosition(int position) {
-        if (position >= 0 && position < complaintList.size()) {
-            complaintList.remove(position);
-        }
-    }
 
     //delete complaintbyname
-    public void deleteComplaintByName(String name) {
-        for (Complaint complaint: complaintList) {
-            if (complaint.getSubject().equals(name)) {
-                complaintList.remove(complaint);
-                break;
-            }
+    public void deleteComplaintBySubject(String subject, Complaint complaint) {
+        if(complaintDao.getComplaintBySubject(subject) != null) {
+            complaintDao.delete(complaint);
         }
     }
 
-    //readp
-    public List<Complaint> readComplaint() {
-        return complaintList;
-    }
 }

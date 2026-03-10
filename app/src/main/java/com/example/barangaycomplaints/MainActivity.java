@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        complaintList = StoreComplaint.getInstance().getComplaintList();
+        complaintList = StoreComplaint.getInstance(this).getComplaintList();
         itemAdapter = new ItemAdapter(complaintList);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(itemAdapter);

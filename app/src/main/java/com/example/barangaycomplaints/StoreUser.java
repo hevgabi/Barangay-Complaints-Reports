@@ -1,19 +1,22 @@
 package com.example.barangaycomplaints;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class StoreUser {
-    private List<User> userList;
+    private UserDao userDao;
     private static StoreUser INTANCE;
 
-    public StoreUser() {
-        userList = new ArrayList<>();
+    public StoreUser(Context context) {
+        AppDatabase db = AppDatabase.getINSTANCE(context);
+        userDao = db.userDao();
     }
 
-    public static StoreUser getInstance() {
+    public static StoreUser getInstance(Context context) {
         if (INTANCE == null) {
-            INTANCE = new StoreUser();
+            INTANCE = new StoreUser(context);
         }
         return INTANCE;
     }
@@ -23,50 +26,36 @@ public class StoreUser {
     //read
 
     public void addUser(User user) {
-        userList.add(user);
+        userDao.insert(user);
     }
 
     //get all users
-    public List<User> getUserList() {
-        return userList;
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
     }
 
+    //get user by id
     public User getUserById(int userId) {
-        for (User user : userList) {
-            if (user.getId() == userId) {
-                return user;
-            }
-        }
-        return null;
+        return userDao.getUserById(userId);
     }
 
-    public void updateUser(int position, User updatedUser) {
-        if(position >= 0 && position < userList.size()) {
-            userList.set(position, updatedUser);
-        }
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username);
     }
 
-    public void deleteUserByPosition(int position) {
-        for(User user : userList) {
-            if(user.getId() == position){
-                userList.remove(user);
-                break;
-            }
-        }
+    //update user
+    public void updateUser(User user) {
+        userDao.update(user);
     }
 
-    public void deleteUserByName(String name) {
-        for (User user: userList){
-            if(user.getUsername().equals(name) || user.getFirstname().equals(name) || user.getLastname().equals(name)){
-                userList.remove(user);
-                break;
-            }
-        }
+    //delete user
+    public void deleteUser(User user) {
+        userDao.delete(user);
     }
 
-    public List<User> readUser() {
-        return userList;
-    }
+    //read user(s)
+
+
 
 
 }

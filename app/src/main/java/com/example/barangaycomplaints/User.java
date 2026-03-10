@@ -1,6 +1,12 @@
 package com.example.barangaycomplaints;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "tblUser")
 public class User {
+
+    @PrimaryKey(autoGenerate = true)
     private int userId;
     private String lastname;
     private String firstname;

@@ -1,6 +1,11 @@
 package com.example.barangaycomplaints;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "tblComplaint")
 public class Complaint {
+    @PrimaryKey(autoGenerate = true)
     private int complaintId;
     private String subject;
     private boolean isResolved;

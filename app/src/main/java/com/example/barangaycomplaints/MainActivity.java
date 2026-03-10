@@ -2,27 +2,19 @@ package com.example.barangaycomplaints;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.barangaycomplaints.databinding.ActivityMainBinding;
 
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private ItemAdapter itemAdapter;
     private List<Complaint> complaintList;
-
     private ActivityMainBinding binding;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +32,21 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-    itemAdapter.setOnClickListener(new ItemAdapter.OnClickListener() {
-        @Override
-        public void OnClick(int position) {
+        itemAdapter.setOnClickListener(position -> {
+            // View mode
             Intent intent = new Intent(MainActivity.this, ComplaintActivity.class);
+            intent.putExtra("POSITION", position);
+            intent.putExtra("MODE", "VIEW");
             startActivity(intent);
-        }
-    });
+        });
+
+        itemAdapter.setOnEditClickListener(position -> {
+            // Edit mode
+            Intent intent = new Intent(MainActivity.this, ComplaintActivity.class);
+            intent.putExtra("POSITION", position);
+            intent.putExtra("MODE", "EDIT");
+            startActivity(intent);
+        });
     }
 
     @Override

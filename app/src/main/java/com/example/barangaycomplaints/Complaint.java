@@ -2,6 +2,7 @@ package com.example.barangaycomplaints;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import java.time.LocalDate;
 
 @Entity(tableName = "tblComplaint")
 public class Complaint {
@@ -10,23 +11,24 @@ public class Complaint {
     private String subject;
     private boolean isResolved;
     private String description;
-    private String date;
-    private User user;
+    private int userId;
 
     public Complaint(
             int complaintId,
-            User user,
-            String date,
             String description,
             boolean isResolved,
-            String subject
+            String subject,
+            int userId
     ) {
         this.complaintId = complaintId;
-        this.user = user;
-        this.date = date;
         this.description = description;
         this.isResolved = isResolved;
         this.subject = subject;
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public String getDescription() {
@@ -45,11 +47,6 @@ public class Complaint {
         return isResolved;
     }
 
-    public String getDate() {
-        return date;
-    }
 
-    public User getUser() {
-        return user;
-    }
+
 }

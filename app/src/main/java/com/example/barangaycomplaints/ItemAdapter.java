@@ -44,7 +44,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void onBindViewHolder(@NonNull ItemAdapter.ItemViewHolder holder, int position) {
         Complaint complaint = complaintList.get(position);
         holder.binding.tvSubject.setText(complaint.getSubject());
-        holder.binding.tvUsername.setText(complaint.getUser().getUsername());
+        holder.binding.tvUsername.setText(complaint.getUserId());
         holder.binding.mbView.setOnClickListener(v ->{
             if (onClickListener != null) {
                 onClickListener.OnClick(position);

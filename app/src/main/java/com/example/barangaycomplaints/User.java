@@ -6,6 +6,10 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "tblUser")
 public class User {
 
+    public int getUserId() {
+        return userId;
+    }
+
     @PrimaryKey(autoGenerate = true)
     private int userId;
     private String lastname;

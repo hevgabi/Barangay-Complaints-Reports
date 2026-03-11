@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        complaintList = StoreComplaint.getInstance().getComplaintList();
         itemAdapter = new ItemAdapter(complaintList);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(itemAdapter);
@@ -46,5 +47,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        itemAdapter.notifyDataSetChanged();
     }
 }

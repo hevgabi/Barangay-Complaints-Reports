@@ -5,17 +5,17 @@ import java.util.List;
 
 public class StoreComplaint {
     private List<Complaint> complaintList;
-    private static StoreUser INTANCE;
+    private static StoreComplaint INSTANCE;
 
-    public StoreComplaint() {
+    private StoreComplaint() {
         complaintList = new ArrayList<>();
     }
 
-    public static StoreUser getInstance() {
-        if (INTANCE == null) {
-            INTANCE = new StoreUser();
+    public static StoreComplaint getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new StoreComplaint();
         }
-        return INTANCE;
+        return INSTANCE;
     }
     //add
     //edit/update

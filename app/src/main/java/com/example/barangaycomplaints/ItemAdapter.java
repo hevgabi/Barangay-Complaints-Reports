@@ -17,12 +17,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     private OnClickListener onClickListener;
 
+
+
     public ItemAdapter(List<Complaint> complaintList) {
         this.complaintList = complaintList;
     }
 
     public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
+
+
+    }
+
+    public interface OnClickListener {
+        void OnClick(int position);
     }
 
 
@@ -37,6 +45,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         Complaint complaint = complaintList.get(position);
         holder.binding.tvSubject.setText(complaint.getSubject());
         holder.binding.tvUsername.setText(complaint.getUser().getUsername());
+        holder.binding.mbView.setOnClickListener(v ->{
+            if (onClickListener != null) {
+                onClickListener.OnClick(position);
+            }
+        });
+        if (complaint.isResolved()) {
+            holder.binding.textView.setText("Resolved");
+        } else {
+            holder.binding.textView.setText("Pending");
+        }
 
     }
 

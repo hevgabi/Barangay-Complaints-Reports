@@ -1,6 +1,8 @@
 package com.example.barangaycomplaints;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,5 +33,18 @@ public class MainActivity extends AppCompatActivity {
         itemAdapter = new ItemAdapter(complaintList);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(itemAdapter);
+
+        binding.fabAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ComplaintActivity.class);
+            startActivity(intent);
+        });
+
+    itemAdapter.setOnClickListener(new ItemAdapter.OnClickListener() {
+        @Override
+        public void OnClick(int position) {
+            Intent intent = new Intent(MainActivity.this, ComplaintActivity.class);
+            startActivity(intent);
+        }
+    });
     }
 }

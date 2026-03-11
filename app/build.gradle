@@ -3,6 +3,10 @@ plugins {
 }
 
 android {
+
+    buildFeatures {
+        viewBinding true
+    }
     namespace 'com.example.barangaycomplaints'
     compileSdk {
         version = release(36)
